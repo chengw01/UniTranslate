@@ -1,4 +1,4 @@
-window.onload = load;
+﻿window.onload = load;
 
 var supportedLang = [];
 supportedLang["English"] = 'en-CA';
