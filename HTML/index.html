@@ -11,13 +11,11 @@
         <div class="centerbox">
             <form method="post">
                 <div class="loginbox">
-                    
-                        <span class="titlebox">Who am I?</span>
-                        <div class="login_input">
-                            <input name="username" type="text" placeholder="Enter a name"></input>
-                            <select name="lang"></select>
-                        </div>
-                    
+                    <span class="titlebox">Who am I?</span>
+                    <div class="login_input">
+                        <input id="username" name="username" type="text" placeholder="Enter a name" required></input>
+                        <select name="lang" id="lang"></select>
+                    </div>
                 </div>
                 <div class="fake_button">
                     <input name="pin" placeholder="Join a meeting"></input>
@@ -28,5 +26,6 @@
         </div>
         <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
         <script src="js/login.js"></script>
+        <script src="js/SessionManager.js"></script>
     </body>
 </html>

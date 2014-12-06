@@ -30,7 +30,9 @@ function load() {
 }
 
 function loginRequestCallback(response) {
-    console.log(response);
+    var select = document.getElementsByTagName("select")[0];
+    var session = new SessionManager(response,document.getElementById("username").value,select.options[select.selectedIndex].value);
+    window.location = "chat.html"
 }
 
 //Use this function to create a channel until Mike wakes up
