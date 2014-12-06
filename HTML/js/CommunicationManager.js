@@ -1,20 +1,44 @@
-function CommunicationManager(c,u,l,callback) {
+function CommunicationManager(c,u,l,callback,v) {
     this.channel = c;
     this.username = u;
     this.messageSentCallback = callback;
     this.language = l;
-    this.pubNub = PUBNUB.init({
+    
+    //TIME HACK
+    this.videoElement = v;
+    
+    cm = this; //Pollution
+    
+    var pubNubInit = {
         publish_key: 'pub-c-59a1f5c0-e4a6-48ce-b148-b9b0ca01bb3e',
         subscribe_key: 'sub-c-81c3a310-7d53-11e4-9173-02ee2ddab7fe',
         ssl: true
+    };
+    
+    this.pubNub = PUBNUB.init(pubNubInit);
+    
+    pubNubInit["number"] = this.username;
+    
+    this.rtc = PHONE(pubNubInit);
+    this.rtc.ready = this.dial;
+    
+    this.rtc.receive = this.receieveCall;
+}
+
+CommunicationManager.prototype.receieveCall = function(session){
+    session.connected(function(session){
+       PUBNUB.cm.videoElement.appendChild(session.video); 
     });
+}
+
+CommunicationManager.prototype.dial = function() {
+    var session = cm.rtc.dial('Wilson');
 }
 
 CommunicationManager.prototype.startNetwork = function () {
     
     console.log("Start channel: " +this.channel);
-
-    cm = this;
+    
     this.pubNub.subscribe({
         channel: this.channel,
         message: this.gotMessage
