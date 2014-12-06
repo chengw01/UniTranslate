@@ -37,26 +37,5 @@ function loginRequestCallback(response) {
 
 //Use this function to create a channel until Mike wakes up
 function localChannelCreate(callback) {
-
-    var pubNub = PUBNUB.init({
-        publish_key: 'pub-c-59a1f5c0-e4a6-48ce-b148-b9b0ca01bb3e',
-        subscribe_key: 'sub-c-81c3a310-7d53-11e4-9173-02ee2ddab7fe'
-    });
-    
-    pubNub.subscribe({
-        channel: 'test',
-        message: function(t){
-            console.log(t);   
-        }
-    })
-    
-    pubNub.publish({
-        channel: 'test',
-        message: {
-            "test": "test",
-            "test2": "test2"
-        }
-    })
-    
     callback('test');
 }

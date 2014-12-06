@@ -97,10 +97,10 @@ div.chatbox {
 
 div.textElements {
     position: relative;
-    margin-top: 0.5em;
+    margin-top: 0.55em;
 }
 
-div.textElements progress, input {
+div.textElements > progress input {
     position: absolute;
     top: 0;
     left: 0;
@@ -108,16 +108,34 @@ div.textElements progress, input {
     padding: 0;
 }
 
+div.chatMessage {
+    padding: 0.5em;
+}
+
+span.chatMessageUsername {
+    font-size: large;
+    font-weight: bold;
+}
+
+p {
+    margin: 0.2em 0;
+}
+
+p.textOriginal {
+    font-size: small;
+    text-decoration: italic;
+}
+
 progress {
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 100%;
     border: none;
-    height: 0.1em
+    height: 0.2em
 }
 
 progress::-webkit-progress-value {
-    background-color: rgb(255,0,0);
+    background-color: rgb(0,100,0);
 }
 
 progress::-webkit-progress-bar {

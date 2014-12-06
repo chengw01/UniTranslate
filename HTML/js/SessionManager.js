@@ -17,6 +17,10 @@ function SessionManager(c,u,l) {
     }
 }
 
+SessionManager.prototype.addUserToSession = function() {
+    
+}
+
 //Saves the current session to SessionStorage
 SessionManager.prototype.saveToSessionStorage = function() {
     sessionStorage.setItem("channel",this.channel);

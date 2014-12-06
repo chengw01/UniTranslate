@@ -6,14 +6,18 @@ function InputHandler(language,c) {
     this.recongizer.lang = language;
     that = this;
     this.recongizer.onresult = InputHandler.handleResult;
+    this.recongizer.onend = InputHandler.recognizerComplete;
     this.recongizer.start();
+    
+    console.log(this.recongizer);
+}
+
+InputHandler.recognizerComplete = function () {
+    console.log("boo");
+    that.recongizer.start();
 }
 
 InputHandler.handleResult = function(event) {
-    //Undocumented but not private stuff is SO AWESOME
-    console.log(event);
-    console.log(event.results[0]);
-    
     //Loop through all the results comparing confidence
     var confidence = 0;
     var confidenceIndex = 0;

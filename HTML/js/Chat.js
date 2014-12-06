@@ -3,15 +3,24 @@ window.onload = load;
 
 var speech;
 var sManager;
+var comm;
 var progressTick;
 var seconds;
 
 function load() {
     resize();
+    
+    //Start our various objects
     sManager = new SessionManager();
     speech = new InputHandler(sManager.language,speechEvent);
+    comm = new CommunicationManager(sManager.channel);
+    
+    //Start the communication!
+    comm.startNetwork();
 }
 
+//This callback is triggered when we get speech events
+//Updates the UI and prepare to send message to server
 function speechEvent(args) {
     console.log(args);
     
@@ -24,11 +33,13 @@ function speechEvent(args) {
     input.setAttribute("style","color: rgb(" +(255-confidence) +"," +confidence +",60);" );
 
     //Prepare to send the message!
+    //We give users some time to correct or abort the send if something is wayy off
     seconds = Math.min(Math.round((1 - args["confidence"]) * 10000),3000);
     progressTick = setInterval(progressUpdate,100);
     window.setTimeout(sendMessage, seconds+ 100); //So the animation can finish :P
 }
 
+//Simple timer event to update the progress bar
 function progressUpdate() {
     var progress = document.getElementsByTagName("progress")[0];
     var interval = seconds/100;
@@ -38,6 +49,12 @@ function progressUpdate() {
 
 function sendMessage() {
     clearInterval(progressTick);
+    var textElement = document.getElementById("send");
+    comm.sendMessage(textElement.value);
+    
+    //Reset things
+    textElement.value = "";
+    document.getElementsByTagName("progress")[0].value = 0;
 }
 
 //Because CSS sucks

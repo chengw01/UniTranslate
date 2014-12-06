@@ -3,23 +3,28 @@
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no"/>
         <link href="resources/stylesheet.css" rel="stylesheet" type"text/css"/>
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <title>UniTranslate</title>
     </head>
     <body>
         <div class="chatbox">
-            
+            <div class="chatMessage" id="messageTemplate">
+                <span class="chatMessageUsername">Username</span>
+                <p class="translatedText">Text goes here</p>
+                <p class="textOriginal">BLAHBLAH</p>
+            </div>
         </div>
         <div class="userbox">
             
         </div>
         <div class="textElements">
-            <input name="send" id="send" />
+            <input name="send" id="send" placeholder="Start speaking or type here" />
             <progress id="confidence" value="0" max="100"></progress>
         </div>
         <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
         <script src="js/Chat.js"></script>
         <script src="js/InputHandler.js"></script>
         <script src="js/SessionManager.js"></script>
+        <script src="js/CommunicationManager.js"></script>
     </body>
 </html>
