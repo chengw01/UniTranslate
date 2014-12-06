@@ -70,6 +70,7 @@ CommunicationManager.prototype.initRTC = function(){
             document.getElementById("callbox").appendChild(videoSession);
             cm.videoCallSession[number] = session;
             videoSession.volume = 0.2;
+            resize();
         });
     });
 }

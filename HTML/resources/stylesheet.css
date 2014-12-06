@@ -54,7 +54,7 @@ input, select{
 div.loginbox select {
     margin-left: 0.1em;
     width: auto;
-    max-width: 30%;
+    max-width: 25%;
 }
 
 input[name="pin"] {
@@ -152,4 +152,15 @@ progress::-webkit-progress-bar {
 
 .hidden {
     display: none;
+}
+
+video {
+    width: 480px;
+    height: 360px;
+}
+
+.sysmessage {
+    color: orange;
+    font-weight: bold;
+    font-size: large;
 }

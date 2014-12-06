@@ -14,3 +14,12 @@ ChatHistory.prototype.addMessageToHistory = function(username,tmessage,originalm
     
     this.chatBox.scrollTop = this.chatBox.scrollHeight;
 }
+
+ChatHistory.prototype.addSystemMessage = function(message){
+    var newDiv = document.createElement("div");
+    newDiv.appendChild(document.createTextNode(message));
+    newDiv.className = "chatMessage sysmessage";
+    this.chatBox.appendChild(newDiv);
+
+    this.chatBox.scrollTop = this.chatBox.scrollHeight;
+}

@@ -50,6 +50,8 @@ function gotMessageCallback(message){
         //DIAL THE USER!!
         console.log("dialing");
         comm.dial(message["username"]);
+        
+        chatLog.addMessageToHistory(message["username"] +" has connected");
     }else if(message["event"] == "rawmessage"){
         //If we both speak the same language, we don't need to wait for a translation
         if(message["language"] == sManager.language){
@@ -107,5 +109,10 @@ function sendMessage() {
 //Because CSS sucks
 function resize() {
     var chatBox = document.getElementsByClassName("chatbox")[0];
-    chatBox.setAttribute("style","height:" +window.innerHeight/10*9 +"px;");
+    var subtract = 0;
+    console.log(document.getElementsByTagName("video").length);
+    if(document.getElementsByTagName("video").length > 0){
+        subtract = 400;
+    }
+    chatBox.setAttribute("style","height:" +(window.innerHeight-subtract)/10*9 +"px;");
 }
