@@ -1,10 +1,12 @@
 function SessionManager(c,u,l) {
-    
+
     console.log(c +" " +u +" " +l);
-    
+
+    console.log(sessionStorage.getItem("channel"));
+
     //If we're not passing anything to constrctor
     //that means we want to load from session store
-    if (!c && !sessionStorage.getItem("channel")) {
+    if (!c && sessionStorage.getItem("channel")) {
         this.channel = sessionStorage.getItem("channel");
         this.username = sessionStorage.getItem("username");
         this.language = sessionStorage.getItem("language");
@@ -12,11 +14,11 @@ function SessionManager(c,u,l) {
         this.channel = c;
         this.username = u;
         this.language = l;
-        
+
         this.saveToSessionStorage();
-        
+
     }else{
-        console.log("you fail");   
+        console.log("you fail");
     }
 }
 
