@@ -17,12 +17,12 @@ function load() {
     var input = document.getElementsByTagName("input")[0];
 
     input.addEventListener("keypress",function(event){
-        if(event.charCode == 13 && document.getElementById("send").value != ""){
+        if(event.charCode === 13 && document.getElementById("send").value != ""){
             sendMessage();
         }
         
         //User is overriding auto gen text
-        if(seconds != 0){
+        if(seconds !== 0){
             clearInterval(progressTick);
             clearTimeout(sendMessageDelay);
         }
@@ -40,13 +40,29 @@ function load() {
 }
 
 function gotMessageCallback(message){
-
-    //If we both speak the same language, we don't need to wait for a translation
-    if(message["language"] == sManager.language){
-        chatLog.addMessageToHistory(message["username"],message["text"],"");
+    console.log(message);
+    if(message == "connected"){
+        var data = {};
+        data["username"] = sManager.username;
+        data["language"] = sManager.language;
+        comm.sendToServer("newuser",data);
+    }else if(message["event"] == "newuser" && message["username"] != sManager.username){
+        //DIAL THE USER!!
+        console.log("dialing");
+        comm.dial(message["username"]);
+    }else if(message["event"] == "rawmessage"){
+        //If we both speak the same language, we don't need to wait for a translation
+        if(message["language"] == sManager.language){
+            chatLog.addMessageToHistory(message["username"],message["text"],"");
+        }
+        
+        //console.log(message["username"] +" " +sManager.username);
+        if(message["username"] !== sManager.username){
+        console.log(speech);
+            speech.speak(message["text"]);
+        }
     }
     
-    speech.speak(message["text"]);
 }
 
 //This callback is triggered when we get speech events
@@ -73,6 +89,7 @@ function progressUpdate() {
     var progress = document.getElementsByTagName("progress")[0];
     var interval = seconds/100;
     
+    console.log(progress.value + 100/interval);
     progress.value = progress.value + 100/interval;
 }
 

@@ -3,6 +3,7 @@ window.onload = load;
 var supportedLang = [];
 supportedLang["English"] = 'en-CA';
 supportedLang["Pig Latin"] = 'en-CA';
+supportedLang["普通话 (香港)"] = "cmn-Hans-HK";
 
 function load() {
     //Populate the select box

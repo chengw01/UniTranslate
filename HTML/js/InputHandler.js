@@ -1,13 +1,15 @@
 function InputHandler(language,c) {
-    this.callback = c;
-    this.recongizer = new webkitSpeechRecognition();
-    
-    //Prep the recognizer
-    this.recongizer.lang = language;
-    that = this;
-    this.recongizer.onresult = InputHandler.handleResult;
-    this.recongizer.onend = InputHandler.recognizerComplete;
-    this.recongizer.start();
+    if(('webkitSpeechRecognition' in window)){
+        this.callback = c;
+        this.recongizer = new webkitSpeechRecognition();
+        
+        //Prep the recognizer
+        this.recongizer.lang = language;
+        that = this;
+        this.recongizer.onresult = InputHandler.handleResult;
+        this.recongizer.onend = InputHandler.recognizerComplete;
+        this.recongizer.start();
+    }
 
 }
 

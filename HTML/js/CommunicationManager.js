@@ -5,6 +5,7 @@ function CommunicationManager(c,u,l,callback,v) {
     this.language = l;
     this.hasVideo = true;
     this.rtc;
+    this.videoCallSession = [];
     
     //TIME HACK
     this.videoElement = v;
@@ -28,12 +29,10 @@ function CommunicationManager(c,u,l,callback,v) {
     navigator.getMedia({video: true},
         function(){
             cm.hasVideo = true;
-            cm.initRTC();
             
         },
         function(){
             cm.hasVideo = false;
-            cm.initRTC();
         }
     );
 
@@ -43,6 +42,11 @@ function CommunicationManager(c,u,l,callback,v) {
 }
 
 CommunicationManager.prototype.initRTC = function(){
+    if(this.hasVideo){
+        console.log("Starting video call");
+    }else{
+        console.log("Starting audio call only");
+    }
     //YUCK but it looks like the above modifies the array
     this.rtc = PHONE({
         publish_key: 'pub-c-59a1f5c0-e4a6-48ce-b148-b9b0ca01bb3e',
@@ -52,28 +56,26 @@ CommunicationManager.prototype.initRTC = function(){
         number: this.username
     });
     this.rtc.ready(function(){
-        console.log("dialing");
-        cm.rtc.dial("Wilson");
+        if(this.hasVideo){
+            document.getElementById("callbox").appendChild(phone.video);
+        }
+        cm.messageSentCallback("connected");
     })
     
     this.rtc.receive(function(session){
+        console.log("Got a new call!");
         session.connected(function(session){
-            console.log("call got");
-            document.getElementById("callbox").appendChild(session.video); 
+            var videoSession = session.video;
+            var number = session.number;
+            document.getElementById("callbox").appendChild(videoSession);
+            cm.videoCallSession[number] = session;
+            videoSession.volume = 0.2;
         });
     });
 }
 
-CommunicationManager.prototype.receieveCall = function(session){
-    session.connected(function(session){
-        console.log("call got");
-       PUBNUB.cm.videoElement.appendChild(session.video); 
-    });
-}
-
-CommunicationManager.prototype.dial = function() {
-    console.log("dial");
-    var session = cm.rtc.dial('Test2');
+CommunicationManager.prototype.dial = function dial(number){
+    this.rtc.dial(number);
 }
 
 CommunicationManager.prototype.startNetwork = function () {
@@ -82,8 +84,30 @@ CommunicationManager.prototype.startNetwork = function () {
     
     this.pubNub.subscribe({
         channel: this.channel,
-        message: this.gotMessage
+        message: this.gotMessage,
+        connect: this.pubNubConnected,
+        presence: this.connectEvent,
+        heartbeat: 10,
+        state: {
+            username: this.username
+        }
+        
     })
+}
+
+CommunicationManager.prototype.connectEvent = function(event){
+    if(event["action"] == "timeout"){
+        var username = event["data"]["username"];
+        var session = cm.videoCallSession[username];
+        session.hangup();
+        delete cm.videoCallSession[username];
+        console.log(cm.videoCallSession)
+    }
+    console.log(event);
+}
+
+CommunicationManager.prototype.pubNubConnected = function (){
+    cm.initRTC();
 }
 
 CommunicationManager.prototype.gotMessage = function(message){
