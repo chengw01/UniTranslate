@@ -1,3 +1,80 @@
 body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+div.fancytitle {
+    font-size: 3em;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+}
+
+div.centerbox {
+    position: relative;
+    top: 15em;
+    max-width: 500px;
+    margin: 0 auto;
+    color: black;
+}
+
+div.loginbox {
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+    border-radius: 0.5em;
+    margin: 1em 0;
+}
+
+div.login_input {
+    display: block;
+}
+
+span.titlebox {
+    font-size: x-large;
+    font-weight: bold;
+    padding: 1em 0;
+}
+
+input, select{
     
+    font-size: x-large;
+    width: 70%;
+    background-color: rgba(255,255,255,0.8);
+    border: none;
+    text-align: center;
+}
+
+div.loginbox select {
+    margin-left: 0.1em;
+    width: auto;
+    max-width: 30%;
+}
+
+input[name="pin"] {
+    width: inherit;
+}
+
+div.fake_button {
+    height: 100%;
+    border-radius: 0.2em;
+    text-align: center;
+}
+
+button {
+    border: none;
+    border-radius: 0.2em;
+    width: 100%;
+}
+
+span.right {
+    padding-right: 0.2em;
+}
+
+button.confirm, div.fake_button{
+    font-size: x-large;
+    background-color: rgba(55,217,104,0.8);
+    margin: 0.2em 0;
+    padding: 0.2em 0;
 }
