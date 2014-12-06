@@ -1,8 +1,12 @@
 body {
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
+    background-color: black;
     font-family: 'Roboto', sans-serif;
     color: white;
+}
+
+body#home {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
 }
 
 div.fancytitle {
@@ -89,4 +93,33 @@ div.chatbox {
     width: 100%;
     border-radius: 0.2em;
     text-align: left;
+}
+
+div.textElements {
+    position: relative;
+    margin-top: 0.5em;
+}
+
+div.textElements progress, input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 !important;
+    padding: 0;
+}
+
+progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    border: none;
+    height: 0.1em
+}
+
+progress::-webkit-progress-value {
+    background-color: rgb(255,0,0);
+}
+
+progress::-webkit-progress-bar {
+    background-color: rgba(255,0,0,0);
 }

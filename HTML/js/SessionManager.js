@@ -1,9 +1,4 @@
 function SessionManager(c,u,l) {
-
-    console.log(c +" " +u +" " +l);
-
-    console.log(sessionStorage.getItem("channel"));
-
     //If we're not passing anything to constrctor
     //that means we want to load from session store
     if (!c && sessionStorage.getItem("channel")) {
