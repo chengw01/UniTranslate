@@ -8,12 +8,10 @@ function InputHandler(language,c) {
     this.recongizer.onresult = InputHandler.handleResult;
     this.recongizer.onend = InputHandler.recognizerComplete;
     this.recongizer.start();
-    
-    console.log(this.recongizer);
+
 }
 
 InputHandler.recognizerComplete = function () {
-    console.log("boo");
     that.recongizer.start();
 }
 

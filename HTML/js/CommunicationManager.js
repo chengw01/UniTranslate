@@ -22,7 +22,6 @@ CommunicationManager.prototype.startNetwork = function () {
 }
 
 CommunicationManager.prototype.gotMessage = function(message){
-    console.log(cm);
     cm.messageSentCallback(message);
 }
 

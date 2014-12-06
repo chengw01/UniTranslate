@@ -5,17 +5,35 @@ var speech;
 var sManager;
 var comm;
 var progressTick;
-var seconds;
+var sendMessageDelay;
+var seconds = 0;
 var chatLog;
+var speech;
 
 function load() {
     resize();
+    
+    //Hook an enter listener to the input element
+    var input = document.getElementsByTagName("input")[0];
+
+    input.addEventListener("keypress",function(event){
+        if(event.charCode == 13 && document.getElementById("send").value != ""){
+            sendMessage();
+        }
+        
+        //User is overriding auto gen text
+        if(seconds != 0){
+            clearInterval(progressTick);
+            clearTimeout(sendMessageDelay);
+        }
+    });
     
     //Start our various objects
     sManager = new SessionManager();
     speech = new InputHandler(sManager.language,speechEvent);
     comm = new CommunicationManager(sManager.channel,sManager.username,sManager.language,gotMessageCallback);
     chatLog = new ChatHistory();
+    speech = new SpeechEngine(sManager.language);
     
     //Start the communication!
     comm.startNetwork();
@@ -27,12 +45,13 @@ function gotMessageCallback(message){
     if(message["language"] == sManager.language){
         chatLog.addMessageToHistory(message["username"],message["text"],"");
     }
+    
+    speech.speak(message["text"]);
 }
 
 //This callback is triggered when we get speech events
 //Updates the UI and prepare to send message to server
 function speechEvent(args) {
-    console.log(args);
     
     //This really bugs me
     args["text"] = args["text"].charAt(0).toUpperCase() + args["text"].slice(1);
@@ -46,7 +65,7 @@ function speechEvent(args) {
     //We give users some time to correct or abort the send if something is wayy off
     seconds = Math.min(Math.round((1 - args["confidence"]) * 10000),3000);
     progressTick = setInterval(progressUpdate,100);
-    window.setTimeout(sendMessage, seconds+ 100); //So the animation can finish :P
+    sendMessageDelay = window.setTimeout(sendMessage, seconds+ 100); //So the animation can finish :P
 }
 
 //Simple timer event to update the progress bar
@@ -59,6 +78,7 @@ function progressUpdate() {
 
 function sendMessage() {
     clearInterval(progressTick);
+    seconds = 0;
     var textElement = document.getElementById("send");
     comm.sendMessage(textElement.value);
     
