@@ -6,6 +6,7 @@ var sManager;
 var comm;
 var progressTick;
 var seconds;
+var chatLog;
 
 function load() {
     resize();
@@ -13,10 +14,19 @@ function load() {
     //Start our various objects
     sManager = new SessionManager();
     speech = new InputHandler(sManager.language,speechEvent);
-    comm = new CommunicationManager(sManager.channel);
+    comm = new CommunicationManager(sManager.channel,sManager.username,sManager.language,gotMessageCallback);
+    chatLog = new ChatHistory();
     
     //Start the communication!
     comm.startNetwork();
+}
+
+function gotMessageCallback(message){
+
+    //If we both speak the same language, we don't need to wait for a translation
+    if(message["language"] == sManager.language){
+        chatLog.addMessageToHistory(message["username"],message["text"],"");
+    }
 }
 
 //This callback is triggered when we get speech events

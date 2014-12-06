@@ -1,7 +1,8 @@
-function CommunicationManager(c,u,callback) {
+function CommunicationManager(c,u,l,callback) {
     this.channel = c;
     this.username = u;
     this.messageSentCallback = callback;
+    this.language = l;
     this.pubNub = PUBNUB.init({
         publish_key: 'pub-c-59a1f5c0-e4a6-48ce-b148-b9b0ca01bb3e',
         subscribe_key: 'sub-c-81c3a310-7d53-11e4-9173-02ee2ddab7fe',
@@ -22,7 +23,7 @@ CommunicationManager.prototype.startNetwork = function () {
 
 CommunicationManager.prototype.gotMessage = function(message){
     console.log(cm);
-    console.log(message);
+    cm.messageSentCallback(message);
 }
 
 CommunicationManager.prototype.sendToServer = function(event,dataArray) {
@@ -38,6 +39,7 @@ CommunicationManager.prototype.sendMessage = function(message){
     var sendArray = {};
     sendArray["time"] = Date.now();
     sendArray["text"] = message;
+    sendArray["language"] = this.language;
     
     this.sendToServer("rawmessage",sendArray);
 }
