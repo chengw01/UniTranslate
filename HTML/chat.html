@@ -8,7 +8,7 @@
         <title>UniTranslate</title>
     </head>
     <body>
-        <div class="error hidden">You must be using Chrome to use text to speech and speech to text features.</div>
+        <div class="error hidden" data-string="L_BROWSER_WARN">You must be using Chrome to use text to speech and speech to text features.</div>
         <div class="callbox" id="callbox">
             
         </div>
@@ -23,7 +23,7 @@
             
         </div>
         <div class="textElements">
-            <input name="send" id="send" placeholder="Start speaking or type here" />
+            <input name="send" id="send" data-string="L_TEXT_FIELD" placeholder="Start speaking or type here" />
             <progress id="confidence" value="0" max="100"></progress>
         </div>
         <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
@@ -34,5 +34,6 @@
         <script src="js/ChatHistoryManager.js"></script>
         <script src="js/SpeechEngine.js"></script>
         <script src="js/libs/webrtc.js"></script>
+        <script src="js/InterfaceHelper.js"></script>
     </body>
 </html>

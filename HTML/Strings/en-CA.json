@@ -1,0 +1,14 @@
+{
+    "L_TITLE": "Talk to anyone worldwide",
+    "L_FIELD_NAME": "Enter a name",
+    "L_CONN_ERROR": "There was an error connecting you to a meeting, check your PIN and try again.",
+    "L_WHO_AM_I": "Who am I?",
+    "L_JOIN_INPUT": "Meeting ID",
+    "L_HOST_BUTTON": "Host a new meeting",
+    "L_JOIN_BUTTON": "Join a meeting",
+    "L_BROWSER_WARN": "You must be using Chrome to use text to speech and speech to text features.",
+    "L_TEXT_FIELD": "Start speaking or type here",
+    "L_WELCOME_MESSAGE": "Welcome to room ",
+    "L_CONNECTED": " has entered",
+    "L_DISCONNECTED": " has left"
+}

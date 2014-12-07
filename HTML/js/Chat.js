@@ -43,7 +43,12 @@ function load() {
     //Start the communication!
     comm.startNetwork();
     
-    chatLog.addSystemMessage("Welcome to room " +sManager.channel);
+    //Translate the UI
+    translateUI(sManager.language,function(){
+        chatLog.addSystemMessage(getTranslationForDefine("L_WELCOME_MESSAGE") +sManager.channel);
+    });
+    
+    
 }
 
 function gotMessageCallback(message){
@@ -54,7 +59,7 @@ function gotMessageCallback(message){
         data["language"] = sManager.language;
         comm.sendToServer("newuser",data);
     }else if(message["event"] == "disconnect"){
-        chatLog.addSystemMessage(message["username"] +" has disconnected");
+        chatLog.addSystemMessage(message["username"] +getTranslationForDefine("L_DISCONNECTED"));
     }else if(message["event"] == "newuser" && message["username"] != sManager.username){
         //DIAL THE USER!!
         console.log("dialing");
@@ -62,7 +67,7 @@ function gotMessageCallback(message){
             comm.dial(message["username"]);
         }
         
-        chatLog.addSystemMessage(message["username"] +" has connected");
+        chatLog.addSystemMessage(message["username"] +getTranslationForDefine("L_CONNECTED"));
     }else if(message["event"] == "message"){
         
         //If the message is a string, that means no translation was needed

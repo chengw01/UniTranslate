@@ -30,6 +30,13 @@ function load() {
     //Override default form handling
     var form = document.getElementsByTagName("form")[0];
     form.addEventListener("submit",loginEvent);
+    
+    translateUI("en-CA");
+    
+    //UI stuff
+    selectBox.addEventListener("change",function(event){
+        translateUI(event.target.options[event.target.selectedIndex].value);
+    });
 }
 
 function loginEvent(event){
