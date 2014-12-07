@@ -33,7 +33,7 @@ if (is_null($_GET["meeting"]) && !is_null($_GET["username"])) {
 }else if (!is_null($_GET["meeting"]) && !is_null($_GET["username"])) {
     
     //Look for existing room
-    if (doesRoomExist($_GET["meeting"])) {
+    if (doesRoomExist($_GET["meeting"]) && !isUserInRoom($_GET["meeting"],$_GET["username"])) {
        addUserToSession($_GET["username"], $_GET["meeting"]);
        echo $_GET["meeting"];
        exit();
@@ -58,6 +58,19 @@ function addUserToSession($user,$room)
 function openDBConnection()
 {
     return pg_connect("dbname=unitranslate host=localhost user=idontknow password=koding");
+}
+
+function isUserInRoom($room,$user)
+{
+    $pg = openDBConnection();
+    $mv_action = pg_escape_literal($room);
+    $user_action = pg_escape_literal($user);
+    $result = pg_query($pg,"SELECT count(*) FROM sessions WHERE name = $mv_action AND $user_action");
+    $result = pg_fetch_result($result,0,0);
+    if($result > 0){
+        return true;
+    }
+    return false;
 }
 
 //Checks if a room already exist
