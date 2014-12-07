@@ -33,4 +33,5 @@ Firefox, but tts/dictation will not work.
     <li>The browser will not speak to you if the message is in the same language you speak - that'd be crazy</li>
     <li>Video calls will not work if the browser that first connected does not have a webcam or is prevented from accessing it<li>
     <li>The above is also true for audio calls if the browser is prevented from accessing the microphone</li>
+    <li>Only English and Klingon have the user interface localized, I can't speak the other languages :(</li>
 </ul>

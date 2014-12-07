@@ -108,8 +108,12 @@ function speechEvent(args) {
     //Prepare to send the message!
     //We give users some time to correct or abort the send if something is wayy off
     seconds = Math.min(Math.round((1 - args["confidence"]) * 10000),3000);
+    
+    //Too annoying, but keeping that
+    seconds = 500;
+    
     progressTick = setInterval(progressUpdate,100);
-    sendMessageDelay = window.setTimeout(sendMessage, seconds+ 100); //So the animation can finish :P
+    sendMessageDelay = window.setTimeout(sendMessage, 500); //So the animation can finish :P
 }
 
 //Simple timer event to update the progress bar
@@ -130,6 +134,7 @@ function sendMessage() {
     //Reset things
     textElement.value = "";
     document.getElementsByTagName("progress")[0].value = 0;
+    document.getElementsByTagName("input").clearAttribute("style");
 }
 
 //Because CSS sucks

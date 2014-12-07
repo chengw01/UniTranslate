@@ -34,13 +34,12 @@ function doTranslate(){
             
         }
         
-        
+        if(loadedCallback){
+            loadedCallback(true);
+        }
         
     }else{
-        translateUI("en-CA");
-    }
-    if(loadedCallback){
-        loadedCallback(true);
+        translateUI("en-CA",loadedCallback);
     }
     
 }
