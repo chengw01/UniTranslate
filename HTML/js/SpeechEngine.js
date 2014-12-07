@@ -1,5 +1,4 @@
 function SpeechEngine(lang) {
-    console.log("Loading speech synthesis...");
     if (window.SpeechSynthesisUtterance){
         this.engine = new SpeechSynthesisUtterance();
 
@@ -8,8 +7,6 @@ function SpeechEngine(lang) {
         if(lang.substring(0,2) != "en"){
             this.engine.lang = lang;
         }
-    
-        console.log("Lang: " +this.engine.lang);
     
         this.speaking = false;
         this.queue = [];
@@ -21,10 +18,8 @@ function SpeechEngine(lang) {
                 speak.speak(speak.queue.pop());
             }
         };
-        console.log("Done!");
     }else{
         this.disabled = true;    
-        console.log("Speech synthesis is not supported on this machine");
     }
 }
 
@@ -37,9 +32,5 @@ SpeechEngine.prototype.speak = function(message){
         }else{
             this.queue.push(message);
         }  
-    }else{
-        
     }
-   
-    
 }

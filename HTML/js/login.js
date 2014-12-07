@@ -22,8 +22,8 @@ function load() {
     //Make the "fake button" a button that triggers the form
     var fakeButton = document.getElementsByClassName("fake_button")[0];
     fakeButton.addEventListener("click",function(event){
-        if(event.target != fakeButton.getElementsByTagName("input")[0]){
-            loginEvent();
+        if(event.target != fakeButton.getElementsByTagName("input")[0] && document.getElementById("username").value != ""){
+            remoteChannelCreate(loginRequestCallback);
         }
     });
     
@@ -45,9 +45,7 @@ function loginEvent(event){
 }
 
 function loginRequestCallback(response) {
-    
-    console.log("Response: " +response +"werwe");
-    
+
     if(response != "fail"){
         var select = document.getElementsByTagName("select")[0];
         var session = new SessionManager(response,document.getElementById("username").value,select.options[select.selectedIndex].value);

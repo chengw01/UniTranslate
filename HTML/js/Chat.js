@@ -52,7 +52,6 @@ function load() {
 }
 
 function gotMessageCallback(message){
-    console.log(message);
     if(message == "connected"){
         var data = {};
         data["username"] = sManager.username;
@@ -62,7 +61,6 @@ function gotMessageCallback(message){
         chatLog.addSystemMessage(message["username"] +getTranslationForDefine("L_DISCONNECTED"));
     }else if(message["event"] == "newuser" && message["username"] != sManager.username){
         //DIAL THE USER!!
-        console.log("dialing");
         if(comm.ready){
             comm.dial(message["username"]);
         }
@@ -76,7 +74,8 @@ function gotMessageCallback(message){
         }else{
             
             //This is our language, no translation needed
-            if(message["language"] == sManager.language){
+            //Account for accents
+            if(message["language"].substring(0,2) == sManager.language.substring(0,2)){
                 chatLog.addMessageToHistory(message["username"],message["message"][sManager.language],"");
             }else{
                 for(var l in message["message"]){
@@ -121,7 +120,6 @@ function progressUpdate() {
     var progress = document.getElementsByTagName("progress")[0];
     var interval = seconds/100;
     
-    console.log(progress.value + 100/interval);
     progress.value = progress.value + 100/interval;
 }
 
@@ -134,7 +132,7 @@ function sendMessage() {
     //Reset things
     textElement.value = "";
     document.getElementsByTagName("progress")[0].value = 0;
-    document.getElementsByTagName("input").clearAttribute("style");
+    document.getElementsByTagName("input")[0].removeAttribute("style");
 }
 
 //Because CSS sucks

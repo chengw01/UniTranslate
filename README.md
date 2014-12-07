@@ -18,7 +18,7 @@ Firefox, but tts/dictation will not work.
     <li>PHP</li>
     <li>PHP modules for CURL and Postgresql</li>
     <li>PubNub PHP SDK</li>
-    <li>PHP 
+    <li>PHP \</li>
 </ul>
 
 <b>Other requirements</b>
@@ -34,4 +34,5 @@ Firefox, but tts/dictation will not work.
     <li>Video calls will not work if the browser that first connected does not have a webcam or is prevented from accessing it<li>
     <li>The above is also true for audio calls if the browser is prevented from accessing the microphone</li>
     <li>Only English and Klingon have the user interface localized, I can't speak the other languages :(</li>
+    <li>Speech language support depends on the operating system, however, the user probably has the operating system in their native language</li>
 </ul>

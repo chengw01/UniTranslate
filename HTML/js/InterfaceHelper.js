@@ -45,7 +45,6 @@ function doTranslate(){
 }
 
 function getTranslationForDefine(define){
-    console.log(translated);
     if(translated[define]){
         return translated[define];
     }

@@ -43,11 +43,6 @@ function CommunicationManager(c,u,l,callback,v) {
 }
 
 CommunicationManager.prototype.initRTC = function(){
-    if(this.hasVideo){
-        console.log("Starting video call");
-    }else{
-        console.log("Starting audio call only");
-    }
     //YUCK but it looks like the above modifies the array
     this.rtc = PHONE({
         publish_key: 'pub-c-59a1f5c0-e4a6-48ce-b148-b9b0ca01bb3e',
@@ -78,14 +73,11 @@ CommunicationManager.prototype.initRTC = function(){
 }
 
 CommunicationManager.prototype.dial = function(number){
-    console.log("Dialing: " +number);
     this.rtc.dial(number);
 }
 
 CommunicationManager.prototype.startNetwork = function () {
-    
-    console.log("Start channel: " +this.channel);
-    
+
     this.pubNub.subscribe({
         channel: this.channel,
         message: this.gotMessage,
