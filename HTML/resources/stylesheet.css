@@ -4,6 +4,7 @@ body {
     color: white;
     background-image: url("background.jpg");
     background-repeat: no-repeat;
+    overflow-x: hidden;
 }
 
 body#home {
@@ -163,4 +164,13 @@ video {
     color: orange;
     font-weight: bold;
     font-size: large;
+}
+
+.error {
+    width: 100%;
+    position: absolute;
+    background-color: #EF9A9A;
+    top: 0;
+    left: 0;
+    padding: 0.2em;
 }

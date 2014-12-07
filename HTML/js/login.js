@@ -1,4 +1,4 @@
-﻿window.onload = load;
+window.onload = load;
 
 var supportedLang = [];
 supportedLang["English"] = 'en-CA';
@@ -26,14 +26,40 @@ function load() {
     form.addEventListener("submit",function(event){
         event.preventDefault();
         
-        localChannelCreate(loginRequestCallback);
+        remoteChannelCreate(loginRequestCallback);
     });
 }
 
 function loginRequestCallback(response) {
-    var select = document.getElementsByTagName("select")[0];
-    var session = new SessionManager(response,document.getElementById("username").value,select.options[select.selectedIndex].value);
-    window.location = "chat.html"
+    
+    console.log("Response: " +response +"werwe");
+    
+    if(response != "fail"){
+        var select = document.getElementsByTagName("select")[0];
+        var session = new SessionManager(response,document.getElementById("username").value,select.options[select.selectedIndex].value);
+        window.location = "chat.html"
+    }else{
+        document.getElementsByClassName("error")[0].className = "error";
+    }
+    
+}
+
+function remoteChannelCreate(callback){
+    xhr = new XMLHttpRequest();
+    
+    var extra = "";
+    
+    if(document.getElementById("pin").value != ""){
+        extra = "&meeting=" +document.getElementById("pin").value;
+    }
+    
+    xhr.open("GET","session.php?username=" +document.getElementById("username").value +extra);
+    xhr.onload = function(){
+       loginRequestCallback(this.responseText); 
+    };
+    //Send
+    xhr.send("");
+
 }
 
 //Use this function to create a channel until Mike wakes up

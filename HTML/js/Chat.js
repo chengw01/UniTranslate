@@ -37,6 +37,8 @@ function load() {
     
     //Start the communication!
     comm.startNetwork();
+    
+    chatLog.addSystemMessage("Welcome to room " +sManager.channel);
 }
 
 function gotMessageCallback(message){
@@ -51,7 +53,7 @@ function gotMessageCallback(message){
         console.log("dialing");
         comm.dial(message["username"]);
         
-        chatLog.addMessageToHistory(message["username"] +" has connected");
+        chatLog.addSystemMessage(message["username"] +" has connected");
     }else if(message["event"] == "rawmessage"){
         //If we both speak the same language, we don't need to wait for a translation
         if(message["language"] == sManager.language){
@@ -110,7 +112,6 @@ function sendMessage() {
 function resize() {
     var chatBox = document.getElementsByClassName("chatbox")[0];
     var subtract = 0;
-    console.log(document.getElementsByTagName("video").length);
     if(document.getElementsByTagName("video").length > 0){
         subtract = 400;
     }

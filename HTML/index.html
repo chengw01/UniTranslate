@@ -7,6 +7,7 @@
         <title>UniTranslate</title>
     </head>
     <body id="home">
+        <div class="error hidden">There was an error connecting you to a meeting, check your PIN and try again.</div>
         <div class="fancytitle">Talk to anyone worldwide</div>
         <div class="centerbox">
             <form method="post">
@@ -18,7 +19,7 @@
                     </div>
                 </div>
                 <div class="fake_button">
-                    <input name="pin" placeholder="Join a meeting" />
+                    <input id="pin" name="pin" placeholder="Join a meeting" />
                     <span class="right">Join a meeting</span>
                 </div>
                 <button class="confirm">Host a new meeting</button>
