@@ -6,7 +6,6 @@ function CommunicationManager(c,u,l,callback,v) {
     this.hasVideo = true;
     this.rtc;
     this.videoCallSession = [];
-    this.playNow = [];
     this.ready = false;
     
     //TIME HACK
@@ -59,7 +58,7 @@ CommunicationManager.prototype.initRTC = function(){
     });
     this.rtc.ready(function(){
         if(this.hasVideo){
-            document.getElementById("callbox").appendChild(cm.rtc.video);
+            document.getElementById("callbox").appendChild(phone.video);
         }
         cm.ready = true;
         cm.messageSentCallback("connected");
@@ -70,21 +69,12 @@ CommunicationManager.prototype.initRTC = function(){
             var videoSession = session.video;
             var number = session.number;
             videoSession.setAttribute("id","video-" +number);
-            cm.playNow.push(number);
-            setTimeout(cm.playVideo,5000);
-            videoSession.removeAttribute("autoplay");
             document.getElementById("callbox").appendChild(videoSession);
             cm.videoCallSession[number] = session;
             videoSession.volume = 0.2;
-            resize();
+            resize();  
         });
     });
-}
-
-CommunicationManager.prototype.playVideo = function() {
-    var number = cm.playNow.pop();
-    var videoStream = document.getElementById("video-" +number);
-    videoStream.play();
 }
 
 CommunicationManager.prototype.dial = function(number){
@@ -116,9 +106,14 @@ CommunicationManager.prototype.connectEvent = function(event){
         var element = document.getElementById("video-" +username);
         if(element){
             session.hangup();
-            document.getElementByClassName("callbox")[0].removeChild(element);
+            document.getElementsByClassName("callbox")[0].removeChild(element);
             delete cm.videoCallSession[username];
+            resize();
         }
+        var returnArray = {};
+        returnArray["event"] = "disconnect";
+        returnArray["username"] = username;
+        cm.messageSentCallback(returnArray);
     }
 }
 

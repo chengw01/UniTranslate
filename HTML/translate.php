@@ -98,6 +98,10 @@ function getTwoCharacterLanguage($input){
     //We have some special ones due to differences between services
     if($input == "cmn-Hans-HK"){
         return "zh-CHT";
+    }else if($input == "cmn-Hans-CN"){
+        return "zh-CHS";
+    }else if($input == "tlh"){
+        return $input;
     }
     return substr($input,0,2);
 }

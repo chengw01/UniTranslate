@@ -22,7 +22,7 @@ function load() {
     var input = document.getElementsByTagName("input")[0];
 
     input.addEventListener("keypress",function(event){
-        if(event.charCode === 13 && document.getElementById("send").value != ""){
+        if(event.keyCode === 13 && document.getElementById("send").value != ""){
             sendMessage();
         }
         
@@ -53,6 +53,8 @@ function gotMessageCallback(message){
         data["username"] = sManager.username;
         data["language"] = sManager.language;
         comm.sendToServer("newuser",data);
+    }else if(message["event"] == "disconnect"){
+        chatLog.addSystemMessage(message["username"] +" has disconnected");
     }else if(message["event"] == "newuser" && message["username"] != sManager.username){
         //DIAL THE USER!!
         console.log("dialing");

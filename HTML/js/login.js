@@ -1,9 +1,15 @@
 window.onload = load;
 
 var supportedLang = [];
-supportedLang["English"] = 'en-CA';
-supportedLang["Pig Latin"] = 'en-CA';
+supportedLang["English (Canada)"] = 'en-CA';
+supportedLang["English (UK)"] = 'en-GB';
+supportedLang["English (US)"] = 'en-US';
+supportedLang["Español"] = "es-MX";
+supportedLang["tlhIngan"] = 'tlh';
+supportedLang["한국어"] = "ko-KR";
+supportedLang["日本語"] = "ja-JP";
 supportedLang["普通话 (香港)"] = "cmn-Hans-HK";
+supportedLang["普通话 (中国大陆)"] = "cmn-Hans-CN";
 
 function load() {
     //Populate the select box
