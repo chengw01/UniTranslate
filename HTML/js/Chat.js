@@ -13,11 +13,6 @@ var speech;
 function load() {
     resize();
     
-    if (!window.SpeechSynthesisUtterance){
-        document.getElementsByClassName("error")[0].className = "error";
-        
-    }
-    
     //Hook an enter listener to the input element
     var input = document.getElementsByTagName("input")[0];
 
@@ -45,7 +40,11 @@ function load() {
     
     //Translate the UI
     translateUI(sManager.language,function(){
-        chatLog.addSystemMessage(getTranslationForDefine("L_WELCOME_MESSAGE") +sManager.channel);
+        chatLog.addSystemMessage(getTranslationForDefine("L_WELCOME_MESSAGE") +sManager.channel +getTranslationForDefine("L_SHARE_MESSAGE"));
+        if (!window.SpeechSynthesisUtterance){
+            chatLog.addSystemMessage(getTranslationForDefine("L_BROWSER_WARN"));
+            
+        }
     });
     
     

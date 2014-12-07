@@ -9,6 +9,7 @@
     "L_BROWSER_WARN": "You must be using Chrome to use text to speech and speech to text features.",
     "L_TEXT_FIELD": "Start speaking or type here",
     "L_WELCOME_MESSAGE": "Welcome to room ",
+    "L_SHARE_MESSAGE": " (That is your meeting ID)",
     "L_CONNECTED": " has entered",
     "L_DISCONNECTED": " has left"
 }

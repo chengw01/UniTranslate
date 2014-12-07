@@ -3,6 +3,8 @@
 require_once('../lib/autoloader.php');
 use Pubnub\Pubnub;
 
+define("USE_TRANSLATION_CACHE",false);
+
 //Do we have the required data?
 if (is_null($_GET["username"]) || is_null($_GET["message"]) || is_null($_GET["room"])) {
     echo "fail";
@@ -111,10 +113,13 @@ function getTranslation($org,$message,$to)
     
     //Check if it's already in the cache
     $db = openDBConnection();
-    $res = pg_query($db,"SELECT to_text FROM translation_cache WHERE org_lang = " .pg_escape_literal($org) ." AND org_message = " .pg_escape_literal($message) ." AND to_lang = " .pg_escape_literal($to));
-    if($result = pg_fetch_result($res,0)){
-        pg_update($db,"translation_cache",["access" => time()],["org_lang" => $org, "org_message" => $message, "to_lang" => $to]);
-        return $result;
+    
+    if(USE_TRANSLATION_CACHE){
+        $res = pg_query($db,"SELECT to_text FROM translation_cache WHERE org_lang = " .pg_escape_literal($org) ." AND org_message = " .pg_escape_literal($message) ." AND to_lang = " .pg_escape_literal($to));
+        if($result = pg_fetch_result($res,0)){
+            pg_update($db,"translation_cache",["access" => time()],["org_lang" => $org, "org_message" => $message, "to_lang" => $to]);
+            return $result;
+        }
     }
     
     global $token;
@@ -138,7 +143,9 @@ function getTranslation($org,$message,$to)
     echo $xml;
     
     //Add this to the array
-    $result = pg_insert($db,"translation_cache",["org_lang" => $org,"org_message" => $message, "to_lang" => $to, "to_text" => (string)$xml,"access" => time()]);
+    if(USE_TRANSLATION_CACHE){
+        $result = pg_insert($db,"translation_cache",["org_lang" => $org,"org_message" => $message, "to_lang" => $to, "to_text" => (string)$xml,"access" => time()]);
+    }
     
     return (string)$xml;
 }

@@ -27,15 +27,18 @@ function CommunicationManager(c,u,l,callback,v) {
         navigator.msGetUserMedia
     );
     
-    navigator.getMedia({video: true},
-        function(){
-            cm.hasVideo = true;
-            
-        },
-        function(){
-            cm.hasVideo = false;
-        }
-    );
+    //Graceful fallback for PaleMoon
+    if(navigator.getMedia){
+        navigator.getMedia({video: true},
+            function(){
+                cm.hasVideo = true;
+                
+            },
+            function(){
+                cm.hasVideo = false;
+            }
+        );
+    }
 
     
     

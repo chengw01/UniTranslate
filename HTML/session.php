@@ -3,29 +3,32 @@
 error_reporting(E_ALL);
 if (is_null($_GET["meeting"]) && !is_null($_GET["username"])) {
     
-    //Start a new room
-    $randPin = "";
-    for ($i = 1;$i<=9;$i++) {
-        $randPin .= rand(0,9);
-        if ($i%3 == 0) {
-            $randPin .= "-";
-        }
-    }
     
-    $randPin = substr($randPin,0,-1);
-    
-    if (!doesRoomExist($randPin)) {
-        $pg = openDBConnection();
-        $result = pg_insert($pg,"sessions",["name" =>$randPin]);
-        if(!$result){
-            echo "fail";
-            exit();
+    while(true){
+        //Start a new room
+        $randPin = "";
+        for ($i = 1;$i<=9;$i++) {
+            $randPin .= rand(0,9);
+            if ($i%3 == 0) {
+                $randPin .= "-";
+            }
         }
-        pg_close($pg);
-        addUserToSession($_GET["username"],$randPin,$_GET["lang"]);
-        if ($result) {
-            echo $randPin;
-            exit();
+        
+        $randPin = substr($randPin,0,-1);
+        
+        if (!doesRoomExist($randPin)) {
+            $pg = openDBConnection();
+            $result = pg_insert($pg,"sessions",["name" =>$randPin]);
+            if(!$result){
+                echo "fail";
+                exit();
+            }
+            pg_close($pg);
+            addUserToSession($_GET["username"],$randPin,$_GET["lang"]);
+            if ($result) {
+                echo $randPin;
+                exit();
+            }
         }
     }
     
