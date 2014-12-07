@@ -15,7 +15,11 @@ function load() {
     
     //Make the "fake button" a button that triggers the form
     var fakeButton = document.getElementsByClassName("fake_button")[0];
-    fakeButton.addEventListener("click",loginEvent);
+    fakeButton.addEventListener("click",function(event){
+        if(event.target != fakeButton.getElementsByTagName("input")[0]){
+            loginEvent();
+        }
+    });
     
     //Override default form handling
     var form = document.getElementsByTagName("form")[0];
@@ -23,10 +27,8 @@ function load() {
 }
 
 function loginEvent(event){
-   console.log("test");
-        event.preventDefault();
-        
-        remoteChannelCreate(loginRequestCallback);
+    event.preventDefault();
+    remoteChannelCreate(loginRequestCallback);
 }
 
 function loginRequestCallback(response) {

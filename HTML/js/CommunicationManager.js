@@ -7,6 +7,7 @@ function CommunicationManager(c,u,l,callback,v) {
     this.rtc;
     this.videoCallSession = [];
     this.playNow = [];
+    this.ready = false;
     
     //TIME HACK
     this.videoElement = v;
@@ -58,8 +59,9 @@ CommunicationManager.prototype.initRTC = function(){
     });
     this.rtc.ready(function(){
         if(this.hasVideo){
-            //document.getElementById("callbox").appendChild(cm.rtc.video);
+            document.getElementById("callbox").appendChild(cm.rtc.video);
         }
+        cm.ready = true;
         cm.messageSentCallback("connected");
     })
     
@@ -86,6 +88,7 @@ CommunicationManager.prototype.playVideo = function() {
 }
 
 CommunicationManager.prototype.dial = function(number){
+    console.log("Dialing: " +number);
     this.rtc.dial(number);
 }
 
@@ -110,8 +113,12 @@ CommunicationManager.prototype.connectEvent = function(event){
     if(event["action"] == "timeout"){
         var username = event["data"]["username"];
         var session = cm.videoCallSession[username];
-        session.hangup();
-        delete cm.videoCallSession[username];
+        var element = document.getElementById("video-" +username);
+        if(element){
+            session.hangup();
+            document.getElementByClassName("callbox")[0].removeChild(element);
+            delete cm.videoCallSession[username];
+        }
     }
 }
 

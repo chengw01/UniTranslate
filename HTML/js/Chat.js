@@ -13,6 +13,11 @@ var speech;
 function load() {
     resize();
     
+    if (!window.SpeechSynthesisUtterance){
+        document.getElementsByClassName("error")[0].className = "error";
+        
+    }
+    
     //Hook an enter listener to the input element
     var input = document.getElementsByTagName("input")[0];
 
@@ -51,7 +56,9 @@ function gotMessageCallback(message){
     }else if(message["event"] == "newuser" && message["username"] != sManager.username){
         //DIAL THE USER!!
         console.log("dialing");
-        comm.dial(message["username"]);
+        if(comm.ready){
+            comm.dial(message["username"]);
+        }
         
         chatLog.addSystemMessage(message["username"] +" has connected");
     }else if(message["event"] == "message"){
@@ -123,7 +130,7 @@ function resize() {
     var chatBox = document.getElementsByClassName("chatbox")[0];
     var subtract = 0;
     if(document.getElementsByTagName("video").length > 0){
-        subtract = 400;
+        subtract = 280;
     }
     chatBox.setAttribute("style","height:" +(window.innerHeight-subtract)/10*9 +"px;");
 }

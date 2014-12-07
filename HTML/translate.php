@@ -19,7 +19,7 @@ $orgLang = pg_query($pg,"SELECT lang FROM room_user WHERE name=$user");
 $orgLang = pg_fetch_result($orgLang,0);
 
 //This is why you properly make tables even in time constraints...
-$result = pg_query($pg,"SELECT count(distinct lang) FROM room_user WHERE session = (SELECT session FROM room_user WHERE name= $user AND session = $room)");
+$result = pg_query($pg,"SELECT count(distinct lang) FROM room_user WHERE session = (SELECT session FROM room_user WHERE name= $user AND session = $room LIMIT 1)");
 $result = pg_fetch_result($result,0);
 
 if($result == 1){
@@ -43,7 +43,7 @@ if($result["expire"] < time() +10 || is_null($result["expire"])){
 pg_close($pg);
 $pg = openDBConnection();
 
-$result = pg_query($pg,"SELECT distinct lang FROM room_user WHERE session = (SELECT session FROM room_user WHERE name=$user AND session = $room)");
+$result = pg_query($pg,"SELECT distinct lang FROM room_user WHERE session = (SELECT session FROM room_user WHERE name=$user AND session = $room LIMIT 1)");
 
 $returnArray = [$orgLang => $_GET["message"]];
 
