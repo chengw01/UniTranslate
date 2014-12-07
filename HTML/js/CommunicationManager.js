@@ -6,6 +6,7 @@ function CommunicationManager(c,u,l,callback,v) {
     this.hasVideo = true;
     this.rtc;
     this.videoCallSession = [];
+    this.playNow = [];
     
     //TIME HACK
     this.videoElement = v;
@@ -57,16 +58,19 @@ CommunicationManager.prototype.initRTC = function(){
     });
     this.rtc.ready(function(){
         if(this.hasVideo){
-            document.getElementById("callbox").appendChild(phone.video);
+            //document.getElementById("callbox").appendChild(cm.rtc.video);
         }
         cm.messageSentCallback("connected");
     })
     
     this.rtc.receive(function(session){
-        console.log("Got a new call!");
         session.connected(function(session){
             var videoSession = session.video;
             var number = session.number;
+            videoSession.setAttribute("id","video-" +number);
+            cm.playNow.push(number);
+            setTimeout(cm.playVideo,5000);
+            videoSession.removeAttribute("autoplay");
             document.getElementById("callbox").appendChild(videoSession);
             cm.videoCallSession[number] = session;
             videoSession.volume = 0.2;
@@ -75,7 +79,13 @@ CommunicationManager.prototype.initRTC = function(){
     });
 }
 
-CommunicationManager.prototype.dial = function dial(number){
+CommunicationManager.prototype.playVideo = function() {
+    var number = cm.playNow.pop();
+    var videoStream = document.getElementById("video-" +number);
+    videoStream.play();
+}
+
+CommunicationManager.prototype.dial = function(number){
     this.rtc.dial(number);
 }
 
@@ -102,9 +112,7 @@ CommunicationManager.prototype.connectEvent = function(event){
         var session = cm.videoCallSession[username];
         session.hangup();
         delete cm.videoCallSession[username];
-        console.log(cm.videoCallSession)
     }
-    console.log(event);
 }
 
 CommunicationManager.prototype.pubNubConnected = function (){
@@ -113,6 +121,13 @@ CommunicationManager.prototype.pubNubConnected = function (){
 
 CommunicationManager.prototype.gotMessage = function(message){
     cm.messageSentCallback(message);
+}
+
+CommunicationManager.prototype.sendTranslateRequest = function(message,retry) {
+    xhr = new XMLHttpRequest();
+
+    xhr.open("GET","translate.php?room=" +this.channel +"&username=" +this.username +"&message=" +message);
+    xhr.send("");
 }
 
 CommunicationManager.prototype.sendToServer = function(event,dataArray) {

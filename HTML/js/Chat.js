@@ -54,16 +54,26 @@ function gotMessageCallback(message){
         comm.dial(message["username"]);
         
         chatLog.addSystemMessage(message["username"] +" has connected");
-    }else if(message["event"] == "rawmessage"){
-        //If we both speak the same language, we don't need to wait for a translation
-        if(message["language"] == sManager.language){
-            chatLog.addMessageToHistory(message["username"],message["text"],"");
-        }
+    }else if(message["event"] == "message"){
         
-        //console.log(message["username"] +" " +sManager.username);
-        if(message["username"] !== sManager.username){
-        console.log(speech);
-            speech.speak(message["text"]);
+        //If the message is a string, that means no translation was needed
+        if(typeof message["message"] === "string"){
+            chatLog.addMessageToHistory(message["username"],message["message"],"");
+        }else{
+            
+            //This is our language, no translation needed
+            if(message["language"] == sManager.language){
+                chatLog.addMessageToHistory(message["username"],message["message"][sManager.language],"");
+            }else{
+                for(var l in message["message"]){
+                    if(l == sManager.language){
+                        chatLog.addMessageToHistory(message["username"],message["message"][sManager.language],message["message"][message["language"]]);
+                        speech.speak(message["message"][sManager.language]);
+                        break;    
+                    }
+                    
+                }
+            }
         }
     }
     
@@ -101,7 +111,7 @@ function sendMessage() {
     clearInterval(progressTick);
     seconds = 0;
     var textElement = document.getElementById("send");
-    comm.sendMessage(textElement.value);
+    comm.sendTranslateRequest(textElement.value);
     
     //Reset things
     textElement.value = "";

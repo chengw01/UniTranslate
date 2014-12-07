@@ -174,3 +174,7 @@ video {
     left: 0;
     padding: 0.2em;
 }
+
+div.callbox {
+    display: inline;
+}

@@ -15,19 +15,18 @@ function load() {
     
     //Make the "fake button" a button that triggers the form
     var fakeButton = document.getElementsByClassName("fake_button")[0];
-    fakeButton.addEventListener("click",function(event){
-       if(event.target != fakeButton.getElementsByTagName("input")[0]){
-            document.getElementsByTagName("form")[0].submit();
-       }
-    });
+    fakeButton.addEventListener("click",loginEvent);
     
     //Override default form handling
     var form = document.getElementsByTagName("form")[0];
-    form.addEventListener("submit",function(event){
+    form.addEventListener("submit",loginEvent);
+}
+
+function loginEvent(event){
+   console.log("test");
         event.preventDefault();
         
         remoteChannelCreate(loginRequestCallback);
-    });
 }
 
 function loginRequestCallback(response) {
@@ -49,15 +48,16 @@ function remoteChannelCreate(callback){
     
     var extra = "";
     
-    if(document.getElementById("pin").value != ""){
+    if(document.getElementById("pin").value !== ""){
         extra = "&meeting=" +document.getElementById("pin").value;
     }
     
-    xhr.open("GET","session.php?username=" +document.getElementById("username").value +extra);
+    var select = document.getElementsByTagName("select")[0];
+    xhr.open("GET","session.php?username=" +document.getElementById("username").value +"&lang=" +select.options[select.selectedIndex].value +extra);
     xhr.onload = function(){
        loginRequestCallback(this.responseText); 
     };
-    //Send
+
     xhr.send("");
 
 }

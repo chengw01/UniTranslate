@@ -22,7 +22,7 @@ if (is_null($_GET["meeting"]) && !is_null($_GET["username"])) {
             exit();
         }
         pg_close($pg);
-        addUserToSession($_GET["username"],$randPin);
+        addUserToSession($_GET["username"],$randPin,$_GET["lang"]);
         if ($result) {
             echo $randPin;
             exit();
@@ -34,7 +34,8 @@ if (is_null($_GET["meeting"]) && !is_null($_GET["username"])) {
     
     //Look for existing room
     if (doesRoomExist($_GET["meeting"]) && !isUserInRoom($_GET["meeting"],$_GET["username"])) {
-       addUserToSession($_GET["username"], $_GET["meeting"]);
+        
+       addUserToSession($_GET["username"], $_GET["meeting"], $_GET["lang"]);
        echo $_GET["meeting"];
        exit();
     }
@@ -47,10 +48,10 @@ exit();
 //Not proper database format, but eh, sue me
 //Do a check before inserting!! No time for validation!
 //Though it looks like pg_insert takes care of it for you
-function addUserToSession($user,$room)
+function addUserToSession($user,$room,$lang)
 {
     $pg = openDBConnection();
-    $result = pg_insert($pg,"room_user",["session" => $room,"name" => $user]);
+    $result = pg_insert($pg,"room_user",["session" => $room,"name" => $user, "lang" => $lang]);
     pg_close($pg);
     return $result;
 }
