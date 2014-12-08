@@ -6,20 +6,22 @@
 This is a demo of a not quite real-time video and audio communication system with automatic
 translation. Features include text to speech and speech to text so that any user can 
 communicate using the language they are most comfortable with.
-
+</p>
+<p>
 This addresses the Hackathon theme by attempting to solve the biggest barrier to real-time
 international communication, that is the language barrier. There are solutions such as apps
 that can translate both languages in a fairly quick order, but what if they are on the other
 side of the world? Rather than wait for an app, this web app tries to encourage natural
 speech by allowing users to talk their native language, and have it spoken to in someone
 else's native language.
-
+</p>
 The motivation behind this is because of the theme's description, what if there was a
 universal translator? This would help me personally speak with so many other people in my 
 hometown of Markham (near Toronto). While there are only a limited subset of languages
 supported (though entering any language code will probably work), this is an first step 
 towards a universal translator.
-
+</p>
+<p>
 This web app is fully compatible with Chrome and webkit browsers as it makes 
 use of the new tts/dictation API found in those browsers. It will fall back gracefully in
 Firefox, but tts/dictation will not work.
@@ -53,8 +55,9 @@ Firefox, but tts/dictation will not work.
 </ul>
 
 <h4>Screenshots</h4>
+The video stream has been edited away
 ![Main Screen](/Koding/main_screen.png?raw=true "Login Screen")
-![Chat Window](/Koding/Chat.png?raw=true "Chat Window")
+![Chat Window](/Koding/Chat.png?raw=true "Chat Window with the video blocked out")
 
 <h4>APIs Used</h4>
 <ul>
