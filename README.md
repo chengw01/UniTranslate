@@ -1,6 +1,6 @@
 <h3>UniTranslate</h3>
 
-[![Koding Hackathon](/Koding/koding.png?raw=true "Koding Hackathon")]
+[Koding Hackathon](/Koding/koding.png?raw=true "Koding Hackathon")
 
 <p>
 This is a demo of a not quite real-time video and audio communication system with automatic
