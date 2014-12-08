@@ -53,6 +53,8 @@ Firefox, but tts/dictation will not work.
 </ul>
 
 <h4>Screenshots</h4>
+![Main Screen](/Koding/main_screen.png?raw=true "Login Screen")
+![Chat Window](/Koding/Chat.png?raw=true "Chat Window")
 
 <h4>APIs Used</h4>
 <ul>
