@@ -33,7 +33,7 @@ Firefox, but tts/dictation will not work.
     <li>PHP</li>
     <li>PHP modules for CURL and Postgresql</li>
     <li>PubNub PHP SDK</li>
-    <li>PHP \</li>
+    <li>PHP</li>
 </ul>
 
 <b>Other requirements</b>
@@ -41,6 +41,7 @@ Firefox, but tts/dictation will not work.
     <li>A PubNub API key</li>
     <li>Microsoft Translator API</li>
     <li>Page must be served over SSL</li>
+    <li>A PSQL database called unitranslate owned by idontknow with the password koding with the included schema loaded</li>
 </ul>
 
 <h4>Notes</h4>
