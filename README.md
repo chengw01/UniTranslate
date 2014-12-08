@@ -1,9 +1,24 @@
 <h3>UniTranslate</h3>
 
+[![Koding Hackathon](/images/koding.png?raw=true "Koding Hackathon")]
+
 <p>
 This is a demo of a not quite real-time video and audio communication system with automatic
 translation. Features include text to speech and speech to text so that any user can 
 communicate using the language they are most comfortable with.
+
+This addresses the Hackathon theme by attempting to solve the biggest barrier to real-time
+international communication, that is the language barrier. There are solutions such as apps
+that can translate both languages in a fairly quick order, but what if they are on the other
+side of the world? Rather than wait for an app, this web app tries to encourage natural
+speech by allowing users to talk their native language, and have it spoken to in someone
+else's native language.
+
+The motivation behind this is because of the theme's description, what if there was a
+universal translator? This would help me personally speak with so many other people in my 
+hometown of Markham (near Toronto). While there are only a limited subset of languages
+supported (though entering any language code will probably work), this is an first step 
+towards a universal translator.
 
 This web app is fully compatible with Chrome and webkit browsers as it makes 
 use of the new tts/dictation API found in those browsers. It will fall back gracefully in
@@ -33,8 +48,18 @@ Firefox, but tts/dictation will not work.
     <li>The browser will not speak to you if the message is in the same language you speak - that'd be crazy</li>
     <li>Video calls will not work if the browser that first connected does not have a webcam or is prevented from accessing it<li>
     <li>The above is also true for audio calls if the browser is prevented from accessing the microphone</li>
-    <li>Only English and Klingon have the user interface localized, I can't speak the other languages :(</li>
+    <li>Only English, Chinese (HK), and Klingon have the user interface localized, I can't speak the other languages, and Chinese is Microsoft Translated :(</li>
     <li>Speech language support depends on the operating system, however, the user probably has the operating system in their native language</li>
+</ul>
+
+<h4>Screenshots</h4>
+
+<h4>APIs Used</h4>
+<ul>
+    <li>PubNub API + Presence</li>
+    <li>Microsoft Translator</li>
+    <li>webkitSpeechRecognition</li>
+    <li>webRTC</li>
 </ul>
 
 <h4>License</h4>

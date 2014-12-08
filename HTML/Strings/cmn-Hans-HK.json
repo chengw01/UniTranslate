@@ -1,0 +1,15 @@
+{
+    "L_TITLE": "世界範圍內的任何人說話",
+    "L_FIELD_NAME": "輸入一個名稱",
+    "L_CONN_ERROR": "將你連接到會議時出錯，請檢查您的 PIN，然後再試。",
+    "L_WHO_AM_I": "我是誰？",
+    "L_JOIN_INPUT": "會議 ID",
+    "L_HOST_BUTTON": "主辦一次新的會議",
+    "L_JOIN_BUTTON": "加入會議",
+    "L_BROWSER_WARN": "您必須使用 Chrome 使用文本到語音轉換和語音到文本功能。",
+    "L_TEXT_FIELD": "開始說話或在此處鍵入",
+    "L_WELCOME_MESSAGE": "歡迎來到房間 ",
+    "L_SHARE_MESSAGE": " （這是您的會議 ID）",
+    "L_CONNECTED": " 已進入",
+    "L_DISCONNECTED": " 已經離開"
+}
